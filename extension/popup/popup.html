@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Syntax Downloader</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="popup-header">
+    <div>
+      <h1>Syntax Downloader</h1>
+      <p class="popup-subtitle">Accelerated browser downloads</p>
+    </div>
+    <div class="connection-status" role="status" aria-live="polite">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">Checking...</span>
+    </div>
+  </header>
+
+  <main>
+    <form id="quickDownloadForm" class="quick-form">
+      <input
+        type="url"
+        id="quickUrl"
+        class="quick-input"
+        placeholder="Paste a download URL"
+        autocomplete="off"
+        spellcheck="false"
+        required
+      />
+      <button type="submit" class="primary-btn" id="quickDownloadBtn">Download</button>
+    </form>
+
+    <div class="action-row">
+      <button type="button" class="secondary-btn" id="scanPageBtn">Page Files</button>
+      <button type="button" class="secondary-btn" id="openAppBtn">Open App</button>
+    </div>
+
+    <section class="settings" aria-label="Extension settings">
+      <label class="setting-row">
+        <span>Enable extension</span>
+        <input type="checkbox" id="setEnabled" />
+      </label>
+      <label class="setting-row">
+        <span>Intercept browser downloads</span>
+        <input type="checkbox" id="setIntercept" />
+      </label>
+      <label class="setting-row">
+        <span>Show media download button</span>
+        <input type="checkbox" id="setFloating" />
+      </label>
+      <label class="setting-row">
+        <span>Alt+click link interception</span>
+        <input type="checkbox" id="setAltClick" />
+      </label>
+    </section>
+
+    <p class="message" id="message" role="status" aria-live="polite"></p>
+  </main>
+
+  <script src="popup.js"></script>
+</body>
+</html>

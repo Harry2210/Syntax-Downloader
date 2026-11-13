@@ -1,0 +1,23 @@
+{
+  "name": "syntax-downloader",
+  "version": "1.0.0",
+  "description": "Syntax Downloader - Advanced Download Manager for Windows",
+  "scripts": {
+    "start": "tauri dev --target x86_64-pc-windows-msvc",
+    "dev:ui": "vite --host 127.0.0.1",
+    "build:ui": "vite build",
+    "tauri:dev": "tauri dev --target x86_64-pc-windows-msvc",
+    "tauri:build": "tauri build --target x86_64-pc-windows-msvc",
+    "test": "cargo test --manifest-path src-tauri/Cargo.toml --target x86_64-pc-windows-msvc"
+  },
+  "author": "Syntax Downloader",
+  "license": "MIT",
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.4",
+    "vite": "^6.4.6"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.12.4",
+    "@tauri-apps/plugin-dialog": "^2.8.4"
+  }
+}

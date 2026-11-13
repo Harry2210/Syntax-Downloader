@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Syntax Downloader",
+  "version": "1.2.5",
+  "description": "Syntax Downloader Browser Extension - Catch and accelerate your downloads with multi-connection streaming",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuBrW1MzIWRNHPeqeTBVB5Mu5qWH5JojVCglygiFSU+m2FiuRVfbVTRml/n24kwkI5w56yAz+f1v2PkPdqvbzmnFsOR6sT40+jwRVvUg8vgghlkLOY+XKE2jnKnQUwuvTW87HYfaDPAKKjseYKdGQsCPT8oS2dAOFCo39fm5WJ+P1CyGMreZIDxIiXD5hG5xPlXjjcO2Y0WIalTHrP47yBDsv21l17j5ivtnpwr+QvxSUBNyJ+ohpbyrA2n2pq4LXRvzqFU+gEamF8jrVd3CE0gihJ88JK3i7nRNcNUqduE6o+uO8+lSbxAR1CKoSBps9EsxZrXFdfNpmTkyArqfY1wIDAQAB",
+  "permissions": [
+    "downloads",
+    "contextMenus",
+    "notifications",
+    "storage",
+    "activeTab",
+    "tabs",
+    "cookies",
+    "nativeMessaging",
+    "alarms"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:36855/*",
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_start"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

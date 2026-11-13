@@ -1,0 +1,60 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "Syntax Downloader",
+  "version": "1.0.0",
+  "identifier": "com.syntax.downloader",
+  "build": {
+    "frontendDist": "../dist-ui",
+    "devUrl": "http://127.0.0.1:1420",
+    "beforeDevCommand": "npm run dev:ui",
+    "beforeBuildCommand": "npm run build:ui"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Syntax Downloader",
+        "width": 1100,
+        "height": 720,
+        "minWidth": 800,
+        "minHeight": 500,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "windows": {
+      "nsis": {
+        "installerHooks": "windows/installer.nsh"
+      }
+    },
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "resources": {
+      "../assets/syntax-downloader-extension.zip": "assets/syntax-downloader-extension.zip",
+      "../bin/yt-dlp.exe": "bin/yt-dlp.exe",
+      "../bin/deno.exe": "bin/deno.exe",
+      "../extension/background.js": "extension/background.js",
+      "../extension/content.css": "extension/content.css",
+      "../extension/content.js": "extension/content.js",
+      "../extension/manifest.json": "extension/manifest.json",
+      "../extension/icons/icon128.png": "extension/icons/icon128.png",
+      "../extension/icons/icon16.png": "extension/icons/icon16.png",
+      "../extension/icons/icon48.png": "extension/icons/icon48.png",
+      "../extension/popup/popup.css": "extension/popup/popup.css",
+      "../extension/popup/popup.html": "extension/popup/popup.html",
+      "../extension/popup/popup.js": "extension/popup/popup.js"
+    }
+  }
+}

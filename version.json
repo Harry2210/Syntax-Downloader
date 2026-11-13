@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "name": "Syntax Downloader v1.0.0",
+  "pub_date": "2026-11-13T20:00:00Z",
+  "downloadUrl": "https://github.com/Harry2210/Syntax-Downloader/releases/latest",
+  "installerUrl": "https://github.com/Harry2210/Syntax-Downloader/releases/download/v1.0.0/Syntax Downloader_1.0.0_x64-setup.exe",
+  "changelog": [
+    "Added System Tray support with minimize-to-tray",
+    "Added option to minimize to tray when window is closed",
+    "Added Windows startup autostart support",
+    "Added automatic in-app update checker"
+  ],
+  "mandatory": false
+}

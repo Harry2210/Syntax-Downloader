@@ -1,0 +1,172 @@
+/* ============================================================
+   Syntax Downloader — Content Script Styles
+   Strictly scoped: Zero interference with page buttons or layouts.
+   ============================================================ */
+
+/* ---------- IDM-Style Floating Video & Media Grabber ---------- */
+
+.sdl-video-grabber {
+  position: absolute;
+  z-index: 2147483647;
+  display: inline-flex;
+  align-items: center;
+  background: rgba(14, 18, 27, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 212, 255, 0.45);
+  border-radius: 24px;
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(0, 212, 255, 0.35);
+  cursor: pointer;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  user-select: none;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  pointer-events: auto;
+  animation: sdl-grabber-appear 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.sdl-video-grabber:hover {
+  transform: translateY(-2px) scale(1.03);
+  border-color: #00d4ff;
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.7),
+    0 0 25px rgba(0, 212, 255, 0.55);
+}
+
+.sdl-video-grabber-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+}
+
+.sdl-video-grabber-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.sdl-video-grabber-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #f4f4f5;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+@keyframes sdl-grabber-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---------- App Not Running Toast Popup ---------- */
+
+.sdl-app-offline-popup {
+  position: fixed !important;
+  top: 24px !important;
+  right: 24px !important;
+  z-index: 2147483647 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  padding: 12px 18px !important;
+  background: rgba(22, 10, 16, 0.96) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(239, 68, 68, 0.5) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.7), 0 0 20px rgba(239, 68, 68, 0.28) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  color: #ffffff !important;
+  pointer-events: auto !important;
+  user-select: none !important;
+  animation: sdl-popup-slide-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  max-width: 440px !important;
+  box-sizing: border-box !important;
+}
+
+.sdl-app-offline-popup.closing {
+  animation: sdl-popup-slide-out 0.25s ease forwards !important;
+}
+
+.sdl-app-offline-icon {
+  flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.sdl-app-offline-body {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+.sdl-app-offline-title {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #ef4444 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.2px !important;
+}
+
+.sdl-app-offline-subtitle {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  color: #94a3b8 !important;
+  line-height: 1.3 !important;
+}
+
+.sdl-app-offline-close {
+  flex-shrink: 0 !important;
+  background: none !important;
+  border: none !important;
+  color: #64748b !important;
+  cursor: pointer !important;
+  padding: 4px !important;
+  margin-left: 8px !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+  border-radius: 4px !important;
+  transition: color 0.15s, background-color 0.15s !important;
+}
+
+.sdl-app-offline-close:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+@keyframes sdl-popup-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes sdl-popup-slide-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+}

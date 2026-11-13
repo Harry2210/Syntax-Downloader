@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syntax Downloader</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Theme Transition Overlay -->
+  <div class="theme-transition-overlay" id="themeOverlay"></div>
+
+  <!-- App Shell -->
+  <div id="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand" style="display: flex; align-items: center; justify-content: space-between; padding: 14px 14px 8px 14px;">
+        <span style="font-weight: 700; font-size: 13px; color: var(--accent-primary); letter-spacing: 0.5px;">SYNTAX</span>
+        <span class="app-version-badge" style="font-size: 11px; background: rgba(99, 102, 241, 0.15); color: var(--accent-primary); padding: 2px 7px; border-radius: 10px; font-weight: 600;">v1.0.0</span>
+      </div>
+      <button class="sidebar-toggle" id="sidebarToggle" title="Toggle Sidebar">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-title">Navigation</div>
+        <button class="sidebar-item active" data-view="all">
+          <span class="sidebar-icon">📥</span>
+          <span class="sidebar-label">All Downloads</span>
+          <span class="sidebar-badge" id="badgeAll">0</span>
+        </button>
+        <button class="sidebar-item" data-view="downloading">
+          <span class="sidebar-icon">⚡</span>
+          <span class="sidebar-label">Downloading</span>
+          <span class="sidebar-badge pulse" id="badgeDownloading">0</span>
+        </button>
+        <button class="sidebar-item" data-view="completed">
+          <span class="sidebar-icon">✅</span>
+          <span class="sidebar-label">Completed</span>
+          <span class="sidebar-badge" id="badgeCompleted">0</span>
+        </button>
+        <button class="sidebar-item" data-view="scheduled">
+          <span class="sidebar-icon">⏰</span>
+          <span class="sidebar-label">Scheduled</span>
+          <span class="sidebar-badge" id="badgeScheduled">0</span>
+        </button>
+
+        <div class="sidebar-section-title">Categories</div>
+        <button class="sidebar-item" data-view="category:Videos">
+          <span class="sidebar-icon">🎬</span>
+          <span class="sidebar-label">Videos</span>
+          <span class="sidebar-badge" id="badgeVideos">0</span>
+        </button>
+        <button class="sidebar-item" data-view="category:Music">
+          <span class="sidebar-icon">🎵</span>
+          <span class="sidebar-label">Music</span>
+          <span class="sidebar-badge" id="badgeMusic">0</span>
+        </button>
+        <button class="sidebar-item" data-view="category:Documents">
+          <span class="sidebar-icon">📄</span>
+          <span class="sidebar-label">Documents</span>
+          <span class="sidebar-badge" id="badgeDocuments">0</span>
+        </button>
+        <button class="sidebar-item" data-view="category:Programs">
+          <span class="sidebar-icon">💾</span>
+          <span class="sidebar-label">Programs</span>
+          <span class="sidebar-badge" id="badgePrograms">0</span>
+        </button>
+        <button class="sidebar-item" data-view="category:Compressed">
+          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-label">Compressed</span>
+          <span class="sidebar-badge" id="badgeCompressed">0</span>
+        </button>
+        <button class="sidebar-item" data-view="category:Images">
+          <span class="sidebar-icon">🖼️</span>
+          <span class="sidebar-label">Images</span>
+          <span class="sidebar-badge" id="badgeImages">0</span>
+        </button>
+        <button class="sidebar-item" data-view="category:Other">
+          <span class="sidebar-icon">📁</span>
+          <span class="sidebar-label">Other</span>
+          <span class="sidebar-badge" id="badgeOther">0</span>
+        </button>
+
+        <div class="sidebar-section-title">Browser</div>
+        <button class="sidebar-item" id="sidebarBtnExtension" style="color: #60a5fa;">
+          <span class="sidebar-icon">🧩</span>
+          <span class="sidebar-label">Download Extension</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <div class="toolbar-group">
+          <button class="toolbar-btn" id="tbBtnAdd" data-tooltip="Add Download (Ctrl+N)">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="toolbar-btn" id="tbBtnResumeAll" data-tooltip="Resume All">
+            <svg viewBox="0 0 24 24" fill="none">
+              <polygon points="6,4 20,12 6,20" fill="currentColor"/>
+            </svg>
+          </button>
+          <button class="toolbar-btn" id="tbBtnPauseAll" data-tooltip="Pause All">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M6 4h4v16H6zm8 0h4v16h-4z" fill="currentColor"/>
+            </svg>
+          </button>
+          <button class="toolbar-btn" id="tbBtnCancelAll" data-tooltip="Stop All">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="5" y="5" width="14" height="14" rx="2" fill="currentColor"/>
+            </svg>
+          </button>
+          <button class="toolbar-btn" id="tbBtnOpenFolder" data-tooltip="Open Downloads Folder">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="toolbar-separator"></div>
+
+        <div class="toolbar-group">
+          <button class="toolbar-btn" id="tbBtnExtension" data-tooltip="Download Extension for Work" style="color: #60a5fa;">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M20.5 11H19V7a2 2 0 00-2-2h-4V3.5a1.5 1.5 0 00-3 0V5H6a2 2 0 00-2 2v4H2.5a1.5 1.5 0 000 3H4v4a2 2 0 002 2h4v1.5a1.5 1.5 0 003 0V20h4a2 2 0 002-2v-4h1.5a1.5 1.5 0 000-3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="toolbar-btn" id="tbBtnTheme" data-tooltip="Toggle Dark/Light Theme">
+            <svg viewBox="0 0 24 24" fill="none" id="themeIcon">
+              <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="toolbar-btn" id="tbBtnSettings" data-tooltip="Settings">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" stroke="currentColor" stroke-width="2"/>
+              <path d="M19.4 15a1.7 1.7 0 00.34 1.88l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.7 1.7 0 00-1.88-.34 1.7 1.7 0 00-1.03 1.56V21a2 2 0 11-4 0v-.09A1.7 1.7 0 008.94 19.4a1.7 1.7 0 00-1.88.34l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.7 1.7 0 004.6 15a1.7 1.7 0 00-1.56-1.03H3a2 2 0 110-4h.09A1.7 1.7 0 004.6 8.94a1.7 1.7 0 00-.34-1.88l-.06-.06a2 2 0 112.83-2.83l.06.06A1.7 1.7 0 008.97 4.6 1.7 1.7 0 0010 3.04V3a2 2 0 114 0v.09a1.7 1.7 0 001.03 1.56 1.7 1.7 0 001.88-.34l.06-.06a2 2 0 112.83 2.83l-.06.06A1.7 1.7 0 0019.4 9c.14.6.66 1.03 1.56 1.03H21a2 2 0 110 4h-.09A1.7 1.7 0 0019.4 15z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="toolbar-search">
+          <svg class="toolbar-search-icon" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <input type="text" class="toolbar-search-input" id="searchInput" placeholder="Search downloads...">
+        </div>
+      </div>
+
+      <!-- View Header -->
+      <div class="view-header">
+        <h2 class="view-title" id="viewTitle">All Downloads</h2>
+        <div class="view-sort">
+          <button class="sort-btn active" data-sort="dateAdded">Date</button>
+          <button class="sort-btn" data-sort="filename">Name</button>
+          <button class="sort-btn" data-sort="totalSize">Size</button>
+          <button class="sort-btn" data-sort="progress">Progress</button>
+        </div>
+      </div>
+
+      <!-- Download List -->
+      <div class="download-list" id="downloadList">
+        <div class="download-list-empty" id="downloadEmptyState">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 3v12m0 0l-4-4m4 4l4-4M5 19h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p>No downloads here.<br>Click "+" or paste a URL to begin accelerating!</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Floating Action Button -->
+    <button class="fab" id="fabAdd" title="Add Download (Ctrl+N)">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <!-- Status Bar -->
+    <footer class="statusbar" id="statusbar">
+      <div class="status-item">
+        <span class="status-dot" id="statusDotIndicator"></span>
+        <span id="statusConnectionText">Ready</span>
+      </div>
+      <div class="status-item">
+        <svg class="status-speed-icon" width="14" height="14" viewBox="0 0 24 24" fill="none">
+          <path d="M12 19V5m0 0l-5 5m5-5l5 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Speed: <strong class="status-speed-value" id="statusCurrentSpeed">0 KB/s</strong></span>
+      </div>
+      <div class="status-item">
+        <span>Active: <strong id="statusActiveCount">0</strong></span>
+      </div>
+      <div class="status-item">
+        <span>Downloaded Today: <strong id="statusTodayDownloaded">0 B</strong></span>
+      </div>
+      <div class="status-item" style="margin-left: auto;">
+        <span style="opacity: 0.8; font-size: 11px; font-weight: 500;">v1.0.0</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ══════════════ MODALS ══════════════ -->
+
+  <!-- Add Download Modal -->
+  <div class="modal-overlay" id="modalAdd">
+    <div class="modal modal-md">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Download</h3>
+        <button class="modal-close" data-close-modal="modalAdd">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Download URL</label>
+          <div style="display: flex; gap: 8px; position: relative;">
+            <input type="text" class="input" id="inputUrl" placeholder="https://example.com/file.zip" style="flex:1;">
+            <button class="paste-btn" id="btnPasteUrl" title="Paste URL">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2M8 5a2 2 0 012-2h4a2 2 0 012 2M8 5a2 2 0 002 2h4a2 2 0 002-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Save Filename</label>
+          <input type="text" class="input" id="inputFilename" placeholder="auto-detected from URL">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Save Directory</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" class="input" id="inputSaveDir" readonly style="flex: 1;">
+            <button class="btn btn-secondary" id="btnBrowseDir">Browse...</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Parallel Segments (Connections)</label>
+          <div class="segments-slider-wrap">
+            <input type="range" class="input" id="inputSegments" min="1" max="32" value="8" style="flex: 1;">
+            <span class="segments-value" id="valSegments">8</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Expected SHA-256 (optional)</label>
+          <input type="text" class="input" id="inputSha256" placeholder="64 hexadecimal characters" maxlength="64" spellcheck="false">
+          <div class="form-hint">The download is marked as failed if the finished file does not match.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox">
+            <input type="checkbox" id="chkStartImmediate" checked>
+            <span>Start download immediately</span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox">
+            <input type="checkbox" id="chkSchedule">
+            <span>Schedule download for later</span>
+          </label>
+          <div id="scheduleTimeWrap" style="margin-top: 8px; display: none;">
+            <input type="datetime-local" class="datetime-input" id="inputScheduleTime">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal="modalAdd">Cancel</button>
+        <button class="btn btn-primary" id="btnConfirmAdd">Start Download</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Download Extension Modal -->
+  <div class="modal-overlay" id="modalExtension">
+    <div class="modal modal-md">
+      <div class="modal-header">
+        <h3 class="modal-title" style="display: flex; align-items: center; gap: 8px;">
+          <span>🧩</span> Download Extension for Work
+        </h3>
+        <button class="modal-close" data-close-modal="modalExtension">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 20px;">
+        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5;">
+          Install the <strong>Syntax Downloader Browser Extension</strong> to automatically catch file downloads, accelerate download speeds up to 32x, and capture streaming videos from Chrome, Edge, and Brave.
+        </p>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+          <button class="btn btn-primary" id="btnDownloadExtZip" style="flex: 1; padding: 10px 14px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M12 4v12m0 0l-4-4m4 4l4-4M4 18h16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download Extension (.ZIP)
+          </button>
+          <button class="btn btn-secondary" id="btnOpenExtFolder" style="padding: 10px 14px; display: flex; align-items: center; gap: 6px;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke="currentColor" stroke-width="2"/></svg>
+            Open Folder
+          </button>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-color); border-radius: 8px; padding: 14px;">
+          <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
+            Quick 30-Second Setup Guide:
+          </div>
+          <ol style="margin: 0; padding-left: 18px; font-size: 12px; color: var(--text-secondary); line-height: 1.8;">
+            <li>Click <strong>Download Extension (.ZIP)</strong> above and extract the folder.</li>
+            <li>In Chrome or Edge, open <code style="background: rgba(255,255,255,0.08); padding: 2px 5px; border-radius: 4px; color: #60a5fa;">chrome://extensions</code> and enable <strong>Developer mode</strong> (top-right).</li>
+            <li>Click <strong>Load unpacked</strong> and select the extracted extension folder.</li>
+          </ol>
+        </div>
+
+        <div style="margin-top: 14px; font-size: 11px; color: var(--text-muted); text-align: center;">
+          ⚡ Official Chrome Web Store & Edge Add-ons 1-click links will be integrated here once store review is complete.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal="modalExtension">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="modalSettings">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title">Settings</h3>
+        <button class="modal-close" data-close-modal="modalSettings">&times;</button>
+      </div>
+      <div class="modal-body" style="max-height: 65vh; overflow-y: auto;">
+        <div class="form-group">
+          <label class="form-label">Default Download Folder</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" class="input" id="setDownloadDir" readonly style="flex: 1;">
+            <button class="btn btn-secondary" id="btnBrowseSettingsDir">Browse...</button>
+          </div>
+          <div class="form-hint" id="lblDefaultDir">New downloads are saved here unless you choose another folder.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Maximum Concurrent Downloads</label>
+          <input type="number" class="input" id="setMaxConcurrent" min="1" max="10" step="1" value="3">
+          <div class="form-hint">Additional downloads wait in the queue.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Default Parallel Segments</label>
+          <div class="segments-slider-wrap">
+            <input type="range" class="input" id="setDefaultSegments" min="1" max="32" value="8" style="flex: 1;">
+            <span class="segments-value" id="valDefaultSegments">8</span>
+          </div>
+          <div class="form-hint">Servers that support byte ranges use this many connections.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Global Speed Limit (KB/s)</label>
+          <input type="number" class="input" id="setSpeedLimit" min="0" max="1048576" step="1" value="0">
+          <div class="form-hint">0 means unlimited. The limit is shared across all connections.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Download History</label>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-secondary" id="btnExportHistory">Export...</button>
+            <button class="btn btn-secondary" id="btnImportHistory">Import...</button>
+          </div>
+          <div class="form-hint">Imported entries are added in a paused state so you can resume them when ready.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox">
+            <input type="checkbox" id="setNotifications">
+            <span>Show in-app notifications</span>
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="checkbox">
+            <input type="checkbox" id="setMinToTray">
+            <span>Start minimized to tray</span>
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="checkbox">
+            <input type="checkbox" id="setCloseToTray">
+            <span>Minimize to tray when window is closed</span>
+          </label>
+          <div class="form-hint">The app keeps running in the system tray. Click the tray icon to restore.</div>
+        </div>
+        <div class="form-group">
+          <label class="checkbox">
+            <input type="checkbox" id="setStartWithWindows">
+            <span>Launch Syntax Downloader when Windows starts</span>
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="checkbox">
+            <input type="checkbox" id="setShutdown">
+            <span>Shut down Windows when the download queue finishes</span>
+          </label>
+          <div class="form-hint">A 60-second shutdown timer starts only when every download is complete or cancelled.</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal="modalSettings">Cancel</button>
+        <button class="btn btn-primary" id="btnSaveSettings">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Available Modal -->
+  <div class="modal-overlay" id="modalUpdateAvailable">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="updateModalTitle">Update Available</h3>
+        <button class="modal-close" data-close-modal="modalUpdateAvailable">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="font-size: 15px; font-weight: 600; margin-bottom: 6px;" id="updateModalHeading">A new version of Syntax Downloader is available!</div>
+        <div style="color: var(--text-muted); font-size: 13px; margin-bottom: 12px;" id="updateModalVersions">Current: v1.2.5 &rarr; Latest: v1.2.6</div>
+        <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">What's New:</div>
+        <div id="updateModalChangelog" style="background: var(--bg-secondary); border-radius: 6px; padding: 12px; max-height: 150px; overflow-y: auto; font-size: 13px; line-height: 1.5; margin-bottom: 12px;"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal="modalUpdateAvailable">Later</button>
+        <button class="btn btn-primary" id="btnDownloadUpdate">Download & Install</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main JavaScript as ES Module -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
