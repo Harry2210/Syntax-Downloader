@@ -3,7 +3,6 @@
   "name": "Syntax Downloader",
   "version": "1.2.5",
   "description": "Syntax Downloader Browser Extension - Catch and accelerate your downloads with multi-connection streaming",
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuBrW1MzIWRNHPeqeTBVB5Mu5qWH5JojVCglygiFSU+m2FiuRVfbVTRml/n24kwkI5w56yAz+f1v2PkPdqvbzmnFsOR6sT40+jwRVvUg8vgghlkLOY+XKE2jnKnQUwuvTW87HYfaDPAKKjseYKdGQsCPT8oS2dAOFCo39fm5WJ+P1CyGMreZIDxIiXD5hG5xPlXjjcO2Y0WIalTHrP47yBDsv21l17j5ivtnpwr+QvxSUBNyJ+ohpbyrA2n2pq4LXRvzqFU+gEamF8jrVd3CE0gihJ88JK3i7nRNcNUqduE6o+uO8+lSbxAR1CKoSBps9EsxZrXFdfNpmTkyArqfY1wIDAQAB",
   "permissions": [
     "downloads",
     "contextMenus",
